@@ -1,0 +1,23 @@
+{
+    "name": "Title Picker",
+    "description": "A sleek title picker extension that captures and displays current tab titles",
+    "version": "1.0",
+    "manifest_version": 3,
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": [
+        "storage",
+        "activeTab",
+        "scripting"
+    ],
+    "options_page": "options.html",
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "icons": {
+        "16": "/images/tag.png",
+        "48": "/images/tag.png",
+        "128": "/images/tag.png"
+    }
+}

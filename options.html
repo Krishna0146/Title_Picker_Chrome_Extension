@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title Picker - Settings</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f6fa;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: #667eea;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .setting-item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 12px;
+            border: 1px solid #e9ecef;
+        }
+
+        .setting-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .setting-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .setting-description {
+            color: #6c757d;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            background: #ced4da;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .toggle-switch.active {
+            background: #667eea;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-switch.active::after {
+            transform: translateX(20px);
+        }
+
+        .button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .button:hover {
+            background: #5a67d8;
+        }
+
+        .button.danger {
+            background: #e74c3c;
+        }
+
+        .button.danger:hover {
+            background: #c0392b;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 20px 30px;
+            text-align: center;
+            color: #6c757d;
+            font-size: 12px;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.error {
+            background: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Title Picker Settings</h1>
+            <p>Simple configuration options</p>
+        </div>
+
+        <div class="content">
+            <!-- Settings -->
+            <div class="section">
+                <h2>Preferences</h2>
+                
+                <div class="setting-item">
+                    <div class="setting-header">
+                        <div>
+                            <div class="setting-title">Auto-copy to Clipboard</div>
+                            <div class="setting-description">Automatically copy captured titles</div>
+                        </div>
+                        <div class="toggle-switch active" data-setting="autoCopy"></div>
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-header">
+                        <div>
+                            <div class="setting-title">Show Notifications</div>
+                            <div class="setting-description">Display success messages</div>
+                        </div>
+                        <div class="toggle-switch active" data-setting="showNotifications"></div>
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-header">
+                        <div>
+                            <div class="setting-title">Remember History</div>
+                            <div class="setting-description">Keep recent titles (max 5)</div>
+                        </div>
+                        <div class="toggle-switch active" data-setting="rememberHistory"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="section">
+                <h2>Data</h2>
+                
+                <div class="setting-item">
+                    <div class="setting-header">
+                        <div>
+                            <div class="setting-title">Clear History</div>
+                            <div class="setting-description">Remove all saved titles</div>
+                        </div>
+                        <button class="button danger" id="clearHistoryBtn">Clear</button>
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-header">
+                        <div>
+                            <div class="setting-title">Reset Settings</div>
+                            <div class="setting-description">Return to default preferences</div>
+                        </div>
+                        <button class="button danger" id="resetSettingsBtn">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            Title Picker Extension v1.0
+        </div>
+    </div>
+
+    <div class="toast" id="toast">Settings saved!</div>
+
+    <script>
+        const settings = {
+            autoCopy: true,
+            showNotifications: true,
+            rememberHistory: true
+        };
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadSettings();
+            setupEventListeners();
+            updateUI();
+        });
+
+        async function loadSettings() {
+            try {
+                const data = await chrome.storage.sync.get(['settings']);
+                if (data.settings) {
+                    Object.assign(settings, data.settings);
+                }
+            } catch (error) {
+                console.error('Error loading settings:', error);
+            }
+        }
+
+        async function saveSettings() {
+            try {
+                await chrome.storage.sync.set({ settings });
+                showToast('Settings saved!');
+            } catch (error) {
+                console.error('Error saving settings:', error);
+                showToast('Error saving settings', 'error');
+            }
+        }
+
+        function setupEventListeners() {
+            document.querySelectorAll('.toggle-switch').forEach(toggle => {
+                toggle.addEventListener('click', () => {
+                    const setting = toggle.dataset.setting;
+                    settings[setting] = !settings[setting];
+                    updateToggle(toggle, settings[setting]);
+                    saveSettings();
+                });
+            });
+
+            document.getElementById('clearHistoryBtn').addEventListener('click', clearHistory);
+            document.getElementById('resetSettingsBtn').addEventListener('click', resetSettings);
+        }
+
+        function updateUI() {
+            document.querySelectorAll('.toggle-switch').forEach(toggle => {
+                const setting = toggle.dataset.setting;
+                updateToggle(toggle, settings[setting]);
+            });
+        }
+
+        function updateToggle(toggle, active) {
+            toggle.classList.toggle('active', active);
+        }
+
+        async function clearHistory() {
+            if (confirm('Clear all title history?')) {
+                try {
+                    await chrome.storage.sync.set({ titleHistory: [] });
+                    showToast('History cleared!');
+                } catch (error) {
+                    showToast('Error clearing history', 'error');
+                }
+            }
+        }
+
+        async function resetSettings() {
+            if (confirm('Reset all settings to default?')) {
+                try {
+                    settings.autoCopy = true;
+                    settings.showNotifications = true;
+                    settings.rememberHistory = true;
+                    
+                    await chrome.storage.sync.set({ settings });
+                    updateUI();
+                    showToast('Settings reset!');
+                } catch (error) {
+                    showToast('Error resetting settings', 'error');
+                }
+            }
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast' + (type === 'error' ? ' error' : '');
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

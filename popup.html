@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title Picker</title>
+    <link rel="stylesheet" href="popup.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-section">
+                <div class="logo-icon">📋</div>
+                <h1 class="title">Title Picker</h1>
+            </div>
+            <div class="version">v1.0</div>
+        </div>
+
+        <!-- Main Action Area -->
+        <div class="main-section">
+            <div class="action-card">
+                <div class="action-header">
+                    <h2>Current Tab Title</h2>
+                    <div class="status-indicator" id="statusIndicator">
+                        <div class="pulse"></div>
+                        <span>Ready</span>
+                    </div>
+                </div>
+                
+                <button class="pick-title-btn" id="pickTitleBtn">
+                    <div class="btn-content">
+                        <span class="btn-icon">🎯</span>
+                        <span class="btn-text">Capture Title</span>
+                    </div>
+                    <div class="btn-shine"></div>
+                </button>
+            </div>
+
+            <!-- Display Area -->
+            <div class="title-display" id="titleDisplay">
+                <div class="display-header">
+                    <span class="display-label">Captured Title:</span>
+                    <button class="copy-btn" id="copyBtn" title="Copy to clipboard">
+                        <span class="copy-icon">📋</span>
+                    </button>
+                </div>
+                <div class="title-content" id="titleContent">
+                    Click "Capture Title" to get started
+                </div>
+                <div class="title-meta" id="titleMeta">
+                    <span class="char-count" id="charCount">0 characters</span>
+                    <span class="timestamp" id="timestamp"></span>
+                </div>
+            </div>
+
+            <!-- History Section -->
+            <div class="history-section">
+                <div class="history-header">
+                    <h3>Recent Titles</h3>
+                    <button class="clear-btn" id="clearBtn">Clear</button>
+                </div>
+                <div class="history-list" id="historyList">
+                    <div class="empty-history">No titles captured yet</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-links">
+                <a href="#" class="footer-link" id="optionsBtn">⚙️ Settings</a>
+                <a href="#" class="footer-link" id="aboutBtn">ℹ️ About</a>
+            </div>
+        </div>
+
+        <!-- Toast Notification -->
+        <div class="toast" id="toast">
+            <span class="toast-icon">✓</span>
+            <span class="toast-message">Title copied to clipboard!</span>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
